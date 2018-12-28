@@ -1,0 +1,14 @@
+{
+    "cSpell.words": [
+        "Encryptable",
+        "clazz",
+        "deserialize",
+        "deserialized",
+        "ifeq",
+        "setx",
+        "splited",
+        "sudoo",
+        "tshook"
+    ],
+    "tslint.configFile": "typescript/tslint.json"
+}
