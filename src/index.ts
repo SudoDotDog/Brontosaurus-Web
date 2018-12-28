@@ -35,4 +35,9 @@ export class BrontosaurusWeb {
 
         this._server = server;
     }
+
+    private token() {
+
+
+    }
 }
