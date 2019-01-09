@@ -2,9 +2,30 @@
 # yarn lockfile v1
 
 
+"@sudoo/triforce@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@sudoo/triforce/-/triforce-1.1.0.tgz#955011d7e4b87490babc2f7c3f4938a94e183eb1"
+  integrity sha512-U5qR0Nh39Ibrp1FRD/aGr1SVl9c2Fmd7vlAFWyhW0ur7KVNDrUScRG3YH244hwo4kyx6XvdeAM/g1bVE0y8iiw==
+  dependencies:
+    "@sudoo/tslint-config" "^1.1.0"
+    "@types/chai" "^4.1.7"
+    "@types/chance" "^1.0.1"
+    "@types/mocha" "^5.2.5"
+    chai "^4.2.0"
+    chance "^1.0.18"
+    mocha "^5.2.0"
+    ts-node "^7.0.1"
+    tslint "^5.12.0"
+    typescript "^3.2.2"
+
 "@sudoo/tslint-config@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@sudoo/tslint-config/-/tslint-config-1.0.1.tgz#027c46d40048f91b0886cfa77eefcacac9752164"
+
+"@sudoo/tslint-config@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@sudoo/tslint-config/-/tslint-config-1.1.0.tgz#f8712fb5a5d26e531af911d25d4c5ce3618c9198"
+  integrity sha512-nYvQthhovGpRSNz8YKTDy64ICJjINlDCJ0umqXifwZUwNAv9TEIpM4K5zsoBmLowMgg0XCZ2cyUV0DBAjqg26Q==
 
 "@types/chai@^4.1.7":
   version "4.1.7"
