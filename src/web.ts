@@ -1,0 +1,77 @@
+/**
+ * @author WMXPY
+ * @namespace Brontosaurus_Web
+ * @description Web
+ */
+
+import { getToken } from "./util";
+
+export class BrontosaurusWeb {
+
+    public static register(server: string, key: string, visit: boolean = false): BrontosaurusWeb {
+
+        if (!this._instance) {
+            this._instance = new BrontosaurusWeb(server, key);
+        }
+
+        if (!visit) {
+            this._instance.info();
+        }
+
+        return this._instance;
+    }
+
+    public static token(): void {
+
+        if (!this._instance) {
+            throw new Error('[Brontosaurus-Web] Need Register');
+        }
+    }
+
+    public static group(): void {
+
+        if (!this._instance) {
+            throw new Error('[Brontosaurus-Web] Need Register');
+        }
+    }
+
+    private static _instance: BrontosaurusWeb | undefined;
+
+    private readonly _server: string;
+    private readonly _key: string;
+
+    private _callbackPath: string;
+
+    private constructor(server: string, key: string) {
+
+        this._server = server;
+        this._key = key;
+
+        this._callbackPath = window.location.href;
+    }
+
+    public setCallbackPath(callbackPath: string): BrontosaurusWeb {
+
+        this._callbackPath = callbackPath;
+        return this;
+    }
+
+    public info<T>(): T {
+
+        const token: string | null = getToken();
+        if (token) {
+
+            console.log(token);
+        } else {
+
+            window.location.href = this._targetPath();
+        }
+
+        return null as any;
+    }
+
+    private _targetPath(): string {
+
+        return `${this._server}?key=${this._key}&cb=${this._callbackPath}`;
+    }
+}
