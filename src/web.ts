@@ -6,12 +6,12 @@
 
 import { getToken } from "./util";
 
-export class BrontosaurusWeb {
+export class Brontosaurus {
 
-    public static register(server: string, key: string, visit: boolean = false): BrontosaurusWeb {
+    public static register(server: string, key: string, visit: boolean = false): Brontosaurus {
 
         if (!this._instance) {
-            this._instance = new BrontosaurusWeb(server, key);
+            this._instance = new Brontosaurus(server, key);
         }
 
         if (!visit) {
@@ -35,7 +35,7 @@ export class BrontosaurusWeb {
         }
     }
 
-    private static _instance: BrontosaurusWeb | undefined;
+    private static _instance: Brontosaurus | undefined;
 
     private readonly _server: string;
     private readonly _key: string;
@@ -50,7 +50,7 @@ export class BrontosaurusWeb {
         this._callbackPath = window.location.href;
     }
 
-    public setCallbackPath(callbackPath: string): BrontosaurusWeb {
+    public setCallbackPath(callbackPath: string): Brontosaurus {
 
         this._callbackPath = callbackPath;
         return this;

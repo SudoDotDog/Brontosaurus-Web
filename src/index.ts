@@ -4,4 +4,4 @@
  * @description Index
  */
 
-export { BrontosaurusWeb } from "./web";
+export { Brontosaurus } from "./web";
