@@ -10,7 +10,6 @@ export const getToken = (): string | null => localStorage.getItem(LOCAL_STORAGE_
 
 export const checkToken = (token: string) => {
 
-
 };
 
 export const parseBody = (token: string) => {
