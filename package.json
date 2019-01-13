@@ -45,7 +45,5 @@
   "devDependencies": {
     "@sudoo/triforce": "^1.1.0"
   },
-  "dependencies": {
-    "connor": "^2.0.0"
-  }
+  "dependencies": {}
 }
