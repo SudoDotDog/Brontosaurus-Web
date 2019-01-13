@@ -48,7 +48,7 @@ export class Token {
         this._onInvalid = onInvalid;
     }
 
-    public get applicationKey(): string {
+    public get applicationKey(): string | undefined {
 
         return this._header.key;
     }
