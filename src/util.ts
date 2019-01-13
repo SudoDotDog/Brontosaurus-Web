@@ -15,7 +15,6 @@ export const parseToken = (token: string): ParsedToken => {
     const splited: string[] = token.split('.');
 
     if (splited.length !== 3) {
-
         throw new Error('Wrong');
     }
 
@@ -26,4 +25,20 @@ export const parseToken = (token: string): ParsedToken => {
         body: decodeSlice(body),
         signature,
     };
+};
+
+export const getInfo = (infos: string[], key: string): string | null => {
+
+    for (const info of infos) {
+
+        const splited: string[] = info.split(':');
+        if (splited.length !== 2) {
+            return null;
+        }
+        if (key === splited[0]) {
+            return splited[1];
+        }
+    }
+
+    return null;
 };
