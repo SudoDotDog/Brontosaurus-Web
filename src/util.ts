@@ -4,15 +4,13 @@
  * @description Util
  */
 
-import { LOCAL_STORAGE_KEY } from "./declare";
+import { LOCAL_STORAGE_KEY, ParsedToken } from "./declare";
 
 export const getToken = (): string | null => localStorage.getItem(LOCAL_STORAGE_KEY);
 
-export const checkToken = (token: string) => {
+const decodeSlice = (encoded: string): any => JSON.parse(atob(encoded));
 
-};
-
-export const parseBody = (token: string) => {
+export const parseToken = (token: string): ParsedToken => {
 
     const splited: string[] = token.split('.');
 
@@ -22,4 +20,10 @@ export const parseBody = (token: string) => {
     }
 
     const [header, body, signature] = splited;
+
+    return {
+        header: decodeSlice(header),
+        body: decodeSlice(body),
+        signature,
+    };
 };
