@@ -10,9 +10,16 @@ import { getToken, parseToken } from "./util";
 
 export class Token {
 
-    public static getToken(): Token {
+    public static getToken(): Token | null {
 
-        return new Token(getToken());
+        const token: string = getToken();
+
+        if (token) {
+
+            return new Token(token);
+        }
+
+        return null;
     }
 
     private readonly _raw: string;
