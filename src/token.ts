@@ -4,9 +4,9 @@
  * @description Token
  */
 
-import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
+import { Basics, IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
 import { ParsedToken } from "./declare";
-import { getInfo, getToken, parseToken } from "./util";
+import { getToken, parseToken } from "./util";
 
 export class Token {
 
@@ -48,20 +48,19 @@ export class Token {
         this._onInvalid = onInvalid;
     }
 
-    public get applicationKey(): string | undefined {
+    public get applicationKey(): string {
 
+        this._validate();
         return this._header.key;
     }
 
-    public getInfo(key: string): string | null {
+    public get infos(): Record<string, Basics> {
 
         this._validate();
-        const infos: string[] = this._body.infos || [];
-
-        return getInfo(infos, key);
+        return this._body.infos;
     }
 
-    public getUsername(): string {
+    public get username(): string {
 
         this._validate();
         const username: string = this._body.username;
@@ -70,6 +69,12 @@ export class Token {
         }
 
         return username;
+    }
+
+    public get signature(): string {
+
+        this._validate();
+        return this._signature;
     }
 
     private _validate(): true {

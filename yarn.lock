@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@brontosaurus/definition@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-1.0.0.tgz#54069bf83784833a8c9cd0c704a15eb912644d0b"
-  integrity sha512-J6eoRPs7OMqaNzSnz7KxMEIE2oc0Q1MTteIKNYJknzNn1iA0VSWa3IDSQkdHpVtQO15OmN51j1kBsVFIAwbXHQ==
+"@brontosaurus/definition@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-1.2.0.tgz#5952e6fc48b289d9e71e456ad3a39a3d46b2e6e6"
+  integrity sha512-OlIrLch8z18Tzh15ZY7Fv9SGQQC9yA8BFBlz9i1yaSnOpDweeK8UcEirbyWqEe40yokqKpLWp1Dc4gaF9K+FeA==
 
 "@sudoo/triforce@^1.1.0":
   version "1.1.0"

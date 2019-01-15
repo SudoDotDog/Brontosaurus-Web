@@ -26,19 +26,3 @@ export const parseToken = (token: string): ParsedToken => {
         signature,
     };
 };
-
-export const getInfo = (infos: string[], key: string): string | null => {
-
-    for (const info of infos) {
-
-        const splited: string[] = info.split(':');
-        if (splited.length !== 2) {
-            return null;
-        }
-        if (key === splited[0]) {
-            return splited[1];
-        }
-    }
-
-    return null;
-};
