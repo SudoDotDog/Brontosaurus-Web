@@ -9,10 +9,10 @@ import { getParam, storeToken } from "./util";
 
 export class Brontosaurus {
 
-    public static register(server: string, key: string, visit: boolean = false): Brontosaurus {
+    public static register(server: string, key: string, callbackPath?: string, visit: boolean = false): Brontosaurus {
 
         if (!this._instance) {
-            this._instance = new Brontosaurus(server, key);
+            this._instance = new Brontosaurus(server, key, callbackPath)._put();
         }
 
         if (!visit) {
@@ -63,7 +63,7 @@ export class Brontosaurus {
 
     public info(): Token {
 
-        const token: Token | null = this._put()._token();
+        const token: Token | null = this._token();
 
         if (!token) {
             this._onInvalid();

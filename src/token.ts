@@ -38,6 +38,8 @@ export class Token {
         raw: string | null,
         onInvalid: () => void,
     ) {
+        this._onInvalid = onInvalid;
+
         if (!Boolean(raw)) {
             this._break();
         }
@@ -48,8 +50,6 @@ export class Token {
         this._header = parsed.header;
         this._body = parsed.body;
         this._signature = parsed.signature;
-
-        this._onInvalid = onInvalid;
     }
 
     public get raw(): string {
