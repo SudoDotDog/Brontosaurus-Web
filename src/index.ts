@@ -5,7 +5,7 @@
  */
 
 import { Token } from "./token";
-import { getParam, storeToken } from "./util";
+import { getParam, removeToken, storeToken } from "./util";
 
 export class Brontosaurus {
 
@@ -20,6 +20,11 @@ export class Brontosaurus {
         }
 
         return this._instance;
+    }
+
+    public static logout(relogin?: boolean): Brontosaurus {
+
+        return this.instance.logout(relogin);
     }
 
     public static get token(): Token {
@@ -69,6 +74,15 @@ export class Brontosaurus {
             this._onInvalid();
         }
         return token as Token;
+    }
+
+    public logout(relogin?: boolean): Brontosaurus {
+
+        removeToken();
+        if (relogin) {
+            this.info();
+        }
+        return this;
     }
 
     private _put(): Brontosaurus {
