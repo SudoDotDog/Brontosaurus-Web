@@ -63,7 +63,7 @@ export class Brontosaurus {
         if (!token) {
             this._onInvalid();
         }
-        return token;
+        return token as Token;
     }
 
     private _targetPath(): string {
