@@ -13,9 +13,10 @@ export class Token {
     public static getToken(
         onInvalid: () => void,
         applicationKey: string,
+        getTokenFunc: () => string | null = getToken,
     ): Token | null {
 
-        const token: string | null = getToken();
+        const token: string | null = getTokenFunc();
 
         const clazz: Token = new Token(token, onInvalid);
         if (clazz.applicationKey === applicationKey) {

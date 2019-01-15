@@ -56,24 +56,21 @@ export class Brontosaurus {
         return this;
     }
 
-    public info<T>(): T {
+    public info(): Token {
 
         const token: Token | null = Token.getToken(this._onInvalid.bind(this), this._key);
 
-        if (token) {
-
-            console.log(token);
-        } else {
-
-            window.location.href = this._targetPath();
+        if (!token) {
+            this._onInvalid();
         }
-
-        return null as any;
+        return token;
     }
 
     private _targetPath(): string {
 
-        return `${this._server}?key=${this._key}&cb=${this._callbackPath}`;
+        const keyParam: string = `key=${encodeURIComponent(this._key)}`;
+        const cbParam: string = `cb=${encodeURIComponent(this._callbackPath)}`;
+        return `${this._server}?${keyParam}&${cbParam}`;
     }
 
     private _onInvalid(): void {
