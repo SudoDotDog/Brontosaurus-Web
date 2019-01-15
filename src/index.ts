@@ -21,18 +21,28 @@ export class Brontosaurus {
         return this._instance;
     }
 
-    public static token(): void {
+    public static get token(): Token {
 
-        if (!this._instance) {
-            throw new Error('[Brontosaurus-Web] Need Register');
-        }
+        return this.instance.info();
     }
 
-    public static group(): void {
+    public static get raw(): string {
+
+        return this.instance.info().raw;
+    }
+
+    public static get group(): string[] {
+
+        return this.instance.info().groups;
+    }
+
+    public static get instance(): Brontosaurus {
 
         if (!this._instance) {
             throw new Error('[Brontosaurus-Web] Need Register');
         }
+
+        return this._instance;
     }
 
     private static _instance: Brontosaurus | undefined;
@@ -40,20 +50,14 @@ export class Brontosaurus {
     private readonly _server: string;
     private readonly _key: string;
 
-    private _callbackPath: string;
+    private readonly _callbackPath: string;
 
-    private constructor(server: string, key: string) {
+    private constructor(server: string, key: string, callbackPath?: string) {
 
         this._server = server;
         this._key = key;
 
-        this._callbackPath = window.location.href;
-    }
-
-    public setCallbackPath(callbackPath: string): Brontosaurus {
-
-        this._callbackPath = callbackPath;
-        return this;
+        this._callbackPath = callbackPath || window.location.href;
     }
 
     public info(): Token {

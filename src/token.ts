@@ -26,6 +26,8 @@ export class Token {
         return null;
     }
 
+    private readonly _raw: string;
+
     private readonly _header: IBrontosaurusHeader;
     private readonly _body: IBrontosaurusBody;
     private readonly _signature: string;
@@ -42,6 +44,8 @@ export class Token {
 
         const parsed: ParsedToken = parseToken(raw as any as string);
 
+        this._raw = raw;
+
         this._header = parsed.header;
         this._body = parsed.body;
         this._signature = parsed.signature;
@@ -49,10 +53,22 @@ export class Token {
         this._onInvalid = onInvalid;
     }
 
+    public get raw(): string {
+
+        this._validate();
+        return this._raw;
+    }
+
     public get applicationKey(): string {
 
         this._validate();
         return this._header.key;
+    }
+
+    public get groups(): string[] {
+
+        this._validate();
+        return this._body.groups;
     }
 
     public get infos(): Record<string, Basics> {
