@@ -4,7 +4,7 @@
  * @description Index
  */
 
-import { getToken } from "./util";
+import { Token } from "./token";
 
 export class Brontosaurus {
 
@@ -58,7 +58,8 @@ export class Brontosaurus {
 
     public info<T>(): T {
 
-        const token: string | null = getToken();
+        const token: Token | null = Token.getToken(this._onInvalid.bind(this), this._key);
+
         if (token) {
 
             console.log(token);
@@ -67,11 +68,16 @@ export class Brontosaurus {
             window.location.href = this._targetPath();
         }
 
-        return null as any;
+        return null;
     }
 
     private _targetPath(): string {
 
         return `${this._server}?key=${this._key}&cb=${this._callbackPath}`;
+    }
+
+    private _onInvalid(): void {
+
+        window.location.href = this._targetPath();
     }
 }
