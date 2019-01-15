@@ -5,9 +5,13 @@
  * @package Unit Test
  */
 
+import { IBrontosaurusHeader } from '@brontosaurus/definition';
+import { Sandbox } from '@sudoo/mock';
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { Token } from '../../src/token';
+
+declare const global: any;
 
 describe('Given a {Token} class', (): void => {
 
@@ -15,9 +19,18 @@ describe('Given a {Token} class', (): void => {
 
     it('should be able to create', (): void => {
 
-        const token: string = chance.string();
+        const token: string = chance.string() + '.' + chance.string() + '.' + chance.string();
+        const key: string = chance.string();
+
+        const header: Partial<IBrontosaurusHeader> = {
+            key,
+        };
+        global.atob = Sandbox.stub(JSON.stringify(header));
+
+        const onInvalid: Sandbox = Sandbox.create();
         const getTokenFunc = () => token;
 
-        expect(1).to.be.equal(1);
+        const clazz: Token | null = Token.getToken(onInvalid.func(), key, getTokenFunc);
+        expect(clazz).to.be.instanceOf(Token);
     });
 });
