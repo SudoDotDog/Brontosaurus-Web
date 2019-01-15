@@ -68,7 +68,7 @@ export class Brontosaurus {
             window.location.href = this._targetPath();
         }
 
-        return null;
+        return null as any;
     }
 
     private _targetPath(): string {

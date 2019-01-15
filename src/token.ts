@@ -39,7 +39,7 @@ export class Token {
             this._break();
         }
 
-        const parsed: ParsedToken = parseToken(raw);
+        const parsed: ParsedToken = parseToken(raw as any as string);
 
         this._header = parsed.header;
         this._body = parsed.body;
