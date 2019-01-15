@@ -42,9 +42,8 @@ export class Token {
             this._break();
         }
 
-        const parsed: ParsedToken = parseToken(raw as any as string);
-
-        this._raw = raw;
+        this._raw = raw as any as string;
+        const parsed: ParsedToken = parseToken(this._raw);
 
         this._header = parsed.header;
         this._body = parsed.body;
