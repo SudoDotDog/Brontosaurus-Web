@@ -30,7 +30,14 @@ export const parseToken = (token: string): ParsedToken => {
 
 export const getParam = (url: string, name: string): string | null => {
 
-    const regexp: RegExp = new RegExp(`(${name}=)(.*?)(&)`, 'i');
+    const encodedName: string =
+        ['(', ')', '{', '}', '.', '+', '?', '!', '*']
+            .reduce(
+                (previous: string, current: string) =>
+                    previous.replace(new RegExp(`\\${current}`, 'g'), '\\' + current),
+                name);
+
+    const regexp: RegExp = new RegExp(`(${encodedName}=)(.*?)(&)`, 'i');
     const matched: string[] | null = url.match(regexp);
 
     if (!matched || !matched[0]) {
@@ -44,5 +51,5 @@ export const getParam = (url: string, name: string): string | null => {
         return null;
     }
 
-    return center.substring(equalIndex, center.length - 1);
+    return decodeURIComponent(center.substring(equalIndex + 1, center.length - 1));
 };

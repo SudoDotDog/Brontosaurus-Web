@@ -11,8 +11,6 @@ export class Brontosaurus {
 
     public static register(server: string, key: string, visit: boolean = false): Brontosaurus {
 
-        this._putToken();
-
         if (!this._instance) {
             this._instance = new Brontosaurus(server, key);
         }
@@ -50,17 +48,6 @@ export class Brontosaurus {
 
     private static _instance: Brontosaurus | undefined;
 
-    private static _putToken(): boolean {
-
-        const token: string | null = getParam(window.location.href, 'token');
-        if (token) {
-            storeToken(token);
-            return true;
-        }
-
-        return false;
-    }
-
     private readonly _server: string;
     private readonly _key: string;
 
@@ -76,12 +63,23 @@ export class Brontosaurus {
 
     public info(): Token {
 
-        const token: Token | null = this._token();
+        const token: Token | null = this._put()._token();
 
         if (!token) {
             this._onInvalid();
         }
         return token as Token;
+    }
+
+    private _put(): Brontosaurus {
+
+        const token: string | null = getParam(window.location.href, 'token');
+        if (token) {
+            storeToken(token);
+            window.history.replaceState({}, document.title, this._callbackPath);
+        }
+
+        return this;
     }
 
     private _token(): Token | null {

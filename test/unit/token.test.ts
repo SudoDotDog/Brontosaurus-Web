@@ -31,6 +31,7 @@ describe('Given a {Token} class', (): void => {
         const getTokenFunc = () => token;
 
         const clazz: Token | null = Token.getToken(onInvalid.func(), key, getTokenFunc);
+
         expect(clazz).to.be.instanceOf(Token);
     });
 });
