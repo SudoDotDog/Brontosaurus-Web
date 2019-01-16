@@ -5,7 +5,7 @@
  */
 
 import { Token } from "./token";
-import { getParam, removeToken, storeToken } from "./util";
+import { getParamByUrl, removeToken, storeToken } from "./util";
 
 export class Brontosaurus {
 
@@ -87,7 +87,7 @@ export class Brontosaurus {
 
     private _put(): Brontosaurus {
 
-        const token: string | null = getParam(window.location.href, 'token');
+        const token: string | null = getParamByUrl(window.location.href, 'token');
         if (token) {
             storeToken(token);
             window.history.replaceState({}, document.title, this._callbackPath);

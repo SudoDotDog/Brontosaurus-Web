@@ -29,6 +29,17 @@ export const parseToken = (token: string): ParsedToken => {
     };
 };
 
+export const getParamByUrl = (url: string, name: string): string | null => {
+
+    const wrap: URL = new URL(url);
+    const param: string | null = wrap.searchParams.get(name);
+
+    if (param) {
+        return decodeURIComponent(param);
+    }
+    return null;
+};
+
 export const getParam = (url: string, name: string): string | null => {
 
     const encodedName: string =
