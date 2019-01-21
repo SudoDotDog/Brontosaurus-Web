@@ -13,8 +13,8 @@ export class Token {
     public static getToken(
         onInvalid: () => void,
         applicationKey: string,
-        getTokenFunc: () => string | null = getToken,
         visit: boolean = false,
+        getTokenFunc: () => string | null = getToken,
     ): Token | null {
 
         const token: string | null = getTokenFunc();
@@ -22,18 +22,15 @@ export class Token {
         if (token) {
 
             const clazz: Token = new Token(token, onInvalid);
-            if (clazz.applicationKey === applicationKey) {
+            if (clazz.sameApplication(applicationKey)) {
                 return clazz;
             }
-            return null;
-        } else {
-
-            if (visit) {
-                return null;
-            }
-            onInvalid();
-            throw new Error('[Brontosaurus-Web] Invalid Token');
         }
+        if (visit) {
+            return null;
+        }
+        onInvalid();
+        throw new Error('[Brontosaurus-Web] Invalid Token');
     }
 
     private readonly _raw: string;
@@ -64,12 +61,6 @@ export class Token {
         return this._raw;
     }
 
-    public get applicationKey(): string {
-
-        this._validate();
-        return this._header.key;
-    }
-
     public get groups(): string[] {
 
         this._validate();
@@ -97,6 +88,16 @@ export class Token {
 
         this._validate();
         return this._signature;
+    }
+
+    public sameApplication(applicationKey: string): boolean {
+
+        if (this._header && this._header.key) {
+
+            return applicationKey === this._header.key;
+        }
+
+        return false;
     }
 
     private _validate(): true {

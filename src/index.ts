@@ -18,7 +18,7 @@ export class Brontosaurus {
         this._instance = new Brontosaurus(server, key, callbackPath)._put();
 
         if (!visit) {
-            this._instance._token();
+            this._instance._token(visit);
         }
 
         return this._instance;
@@ -75,7 +75,7 @@ export class Brontosaurus {
 
     public info(): Token {
 
-        const token: Token | null = this._token();
+        const token: Token | null = this._token(false);
 
         if (!token) {
             this._onInvalid();
@@ -85,7 +85,7 @@ export class Brontosaurus {
 
     public rummage(): Token | null {
 
-        const token: Token | null = this._token();
+        const token: Token | null = this._token(true);
         return token;
     }
 
@@ -109,9 +109,9 @@ export class Brontosaurus {
         return this;
     }
 
-    private _token(): Token | null {
+    private _token(visit: boolean): Token | null {
 
-        return Token.getToken(this._onInvalid.bind(this), this._key);
+        return Token.getToken(this._onInvalid.bind(this), this._key, visit);
     }
 
     private _targetPath(): string {

@@ -30,7 +30,7 @@ describe('Given a {Token} class', (): void => {
         const onInvalid: Sandbox = Sandbox.create();
         const getTokenFunc = () => token;
 
-        const clazz: Token | null = Token.getToken(onInvalid.func(), key, getTokenFunc);
+        const clazz: Token | null = Token.getToken(onInvalid.func(), key, false, getTokenFunc);
 
         expect(clazz).to.be.instanceOf(Token);
     });
