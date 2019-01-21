@@ -11,9 +11,11 @@ export class Brontosaurus {
 
     public static register(server: string, key: string, callbackPath?: string, visit: boolean = false): Brontosaurus {
 
-        if (!this._instance) {
-            this._instance = new Brontosaurus(server, key, callbackPath)._put();
+        if (this._instance) {
+            throw new Error('[Brontosaurus-Web] Registered');
         }
+
+        this._instance = new Brontosaurus(server, key, callbackPath)._put();
 
         if (!visit) {
             this._instance._token();
@@ -124,3 +126,6 @@ export class Brontosaurus {
         window.location.href = this._targetPath();
     }
 }
+
+export { Token };
+
