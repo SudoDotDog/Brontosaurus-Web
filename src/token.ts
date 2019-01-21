@@ -14,16 +14,26 @@ export class Token {
         onInvalid: () => void,
         applicationKey: string,
         getTokenFunc: () => string | null = getToken,
+        visit: boolean = false,
     ): Token | null {
 
         const token: string | null = getTokenFunc();
 
-        const clazz: Token = new Token(token, onInvalid);
-        if (clazz.applicationKey === applicationKey) {
-            return clazz;
-        }
+        if (token) {
 
-        return null;
+            const clazz: Token = new Token(token, onInvalid);
+            if (clazz.applicationKey === applicationKey) {
+                return clazz;
+            }
+            return null;
+        } else {
+
+            if (visit) {
+                return null;
+            }
+            onInvalid();
+            throw new Error('[Brontosaurus-Web] Invalid Token');
+        }
     }
 
     private readonly _raw: string;
@@ -35,16 +45,12 @@ export class Token {
     private readonly _onInvalid: () => void;
 
     private constructor(
-        raw: string | null,
+        raw: string,
         onInvalid: () => void,
     ) {
         this._onInvalid = onInvalid;
 
-        if (!Boolean(raw)) {
-            this._break();
-        }
-
-        this._raw = raw as any as string;
+        this._raw = raw;
         const parsed: ParsedToken = parseToken(this._raw);
 
         this._header = parsed.header;
