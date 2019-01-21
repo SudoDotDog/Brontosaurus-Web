@@ -27,9 +27,14 @@ export class Brontosaurus {
         return this.instance.logout(relogin);
     }
 
-    public static get token(): Token {
+    public static token(): Token {
 
         return this.instance.info();
+    }
+
+    public static rummage(): Token | null {
+
+        return this.instance.rummage();
     }
 
     public static get raw(): string {
@@ -74,6 +79,12 @@ export class Brontosaurus {
             this._onInvalid();
         }
         return token as Token;
+    }
+
+    public rummage(): Token | null {
+
+        const token: Token | null = this._token();
+        return token;
     }
 
     public logout(relogin?: boolean): Brontosaurus {

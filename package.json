@@ -1,6 +1,6 @@
 {
   "name": "@brontosaurus/web",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": ":boar: Brontosaurus integration for web",
   "main": "dist/index.js",
   "directories": {
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@sudoo/mock": "^1.0.0",
-    "@sudoo/triforce": "^1.1.0"
+    "@sudoo/triforce": "^1.2.0"
   },
   "dependencies": {
     "@brontosaurus/definition": "^1.2.0"
