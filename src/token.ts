@@ -56,31 +56,31 @@ export class Token {
     }
 
     public get raw(): string {
-
         this._validate();
         return this._raw;
     }
-
     public get groups(): string[] {
-
         this._validate();
         return this._body.groups;
     }
-
+    public get mint(): string {
+        this._validate();
+        return this._body.mint;
+    }
     public get infos(): Record<string, Basics> {
-
         this._validate();
         return this._body.infos;
     }
-
+    public get beacons(): Record<string, Basics> {
+        this._validate();
+        return this._body.beacons;
+    }
     public get username(): string {
-
         this._validate();
         const username: string = this._body.username;
         if (!username) {
             this._break();
         }
-
         return username;
     }
 

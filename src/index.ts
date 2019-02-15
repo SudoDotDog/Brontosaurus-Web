@@ -4,6 +4,7 @@
  * @description Index
  */
 
+import { Basics } from "@brontosaurus/definition";
 import { Token } from "./token";
 import { getParam, removeToken, storeToken } from "./util";
 
@@ -40,13 +41,22 @@ export class Brontosaurus {
     }
 
     public static get raw(): string {
-
         return this.instance.info().raw;
     }
-
+    public static get mint(): string {
+        return this.instance.info().mint;
+    }
+    public static get username(): string {
+        return this.instance.info().username;
+    }
     public static get group(): string[] {
-
         return this.instance.info().groups;
+    }
+    public static get infos(): Record<string, Basics> {
+        return this.instance.info().infos;
+    }
+    public static get beacons(): Record<string, Basics> {
+        return this.instance.info().beacons;
     }
 
     public static get instance(): Brontosaurus {
