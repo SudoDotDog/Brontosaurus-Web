@@ -4,24 +4,18 @@
  * @description Index
  */
 
-import { Basics } from "@brontosaurus/definition";
 import { Token } from "./token";
 import { getParam, removeToken, storeToken } from "./util";
 
 export class Brontosaurus {
 
-    public static register(server: string, key: string, callbackPath?: string, visit: boolean = false): Brontosaurus {
+    public static register(server: string, key: string): Brontosaurus {
 
         if (this._instance) {
             throw new Error('[Brontosaurus-Web] Registered');
         }
 
-        this._instance = new Brontosaurus(server, key, callbackPath)._put();
-
-        if (!visit) {
-            this._instance._token(visit);
-        }
-
+        this._instance = new Brontosaurus(server, key);
         return this._instance;
     }
 
@@ -30,33 +24,14 @@ export class Brontosaurus {
         return this.instance.logout(relogin);
     }
 
-    public static token(): Token {
+    public static hard(callbackPath?: string): Token {
 
-        return this.instance.info();
-    }
-
-    public static rummage(): Token | null {
-
-        return this.instance.rummage();
+        return this.instance.hard(callbackPath);
     }
 
-    public static get raw(): string {
-        return this.instance.info().raw;
-    }
-    public static get mint(): string {
-        return this.instance.info().mint;
-    }
-    public static get username(): string {
-        return this.instance.info().username;
-    }
-    public static get group(): string[] {
-        return this.instance.info().groups;
-    }
-    public static get infos(): Record<string, Basics> {
-        return this.instance.info().infos;
-    }
-    public static get beacons(): Record<string, Basics> {
-        return this.instance.info().beacons;
+    public static soft(): Token | null {
+
+        return this.instance.soft();
     }
 
     public static get instance(): Brontosaurus {
@@ -73,67 +48,69 @@ export class Brontosaurus {
     private readonly _server: string;
     private readonly _key: string;
 
-    private readonly _callbackPath: string;
-
-    private constructor(server: string, key: string, callbackPath?: string) {
+    private constructor(server: string, key: string) {
 
         this._server = server;
         this._key = key;
-
-        this._callbackPath = callbackPath || window.location.href;
     }
 
-    public info(): Token {
+    public redirect(callbackPath: string = window.location.href): this {
 
-        const token: Token | null = this._token(false);
-
-        if (!token) {
-            this._onInvalid();
-        }
-        return token as Token;
-    }
-
-    public rummage(): Token | null {
-
-        const token: Token | null = this._token(true);
-        return token;
-    }
-
-    public logout(relogin?: boolean): Brontosaurus {
-
-        removeToken();
-        if (relogin) {
-            this.info();
-        }
+        window.location.href = this._redirectPath(callbackPath);
         return this;
     }
 
-    private _put(): Brontosaurus {
+    public check(callbackPath: string = window.location.origin): this {
 
         const token: string | null = getParam(window.location.href, 'token');
         if (token) {
             storeToken(token);
-            window.history.replaceState({}, document.title, this._callbackPath);
+            window.history.replaceState({}, document.title, callbackPath);
         }
-
         return this;
     }
 
-    private _token(visit: boolean): Token | null {
+    public hard(callbackPath?: string): Token {
 
-        return Token.getToken(this._onInvalid.bind(this), this._key, visit);
+        const token: Token | null = this._token();
+
+        if (!token) {
+            this.redirect(callbackPath);
+        }
+        return token as Token;
     }
 
-    private _targetPath(): string {
+    public soft(): Token | null {
+
+        const token: Token | null = this._token();
+        return token;
+    }
+
+    public logout(redirect?: boolean): Brontosaurus {
+
+        removeToken();
+        if (redirect) {
+            this.redirect();
+        }
+        return this;
+    }
+
+    private _token(callbackPath?: string): Token | null {
+
+        const onInvalid: (() => void) | null = callbackPath ? this._getOnInvalid(callbackPath) : null;
+        return Token.getToken(onInvalid, this._key);
+    }
+
+    private _redirectPath(callbackPath: string): string {
 
         const keyParam: string = `key=${encodeURIComponent(this._key)}`;
-        const cbParam: string = `cb=${encodeURIComponent(this._callbackPath)}`;
+        const cbParam: string = `cb=${encodeURIComponent(callbackPath)}`;
         return `${this._server}?${keyParam}&${cbParam}`;
     }
 
-    private _onInvalid(): void {
+    private _getOnInvalid(callbackPath: string): () => void {
 
-        window.location.href = this._targetPath();
+        return () => window.location.href = callbackPath;
     }
 }
 

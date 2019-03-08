@@ -11,9 +11,8 @@ import { getToken, parseToken } from "./util";
 export class Token {
 
     public static getToken(
-        onInvalid: () => void,
+        onInvalid: (() => void) | null,
         applicationKey: string,
-        visit: boolean = false,
         getTokenFunc: () => string | null = getToken,
     ): Token | null {
 
@@ -21,16 +20,13 @@ export class Token {
 
         if (token) {
 
-            const clazz: Token = new Token(token, onInvalid);
+            const clazz: Token = new Token(onInvalid, token);
             if (clazz.sameApplication(applicationKey)) {
                 return clazz;
             }
         }
-        if (visit) {
-            return null;
-        }
-        onInvalid();
-        throw new Error('[Brontosaurus-Web] Invalid Token');
+
+        return null;
     }
 
     private readonly _raw: string;
@@ -39,12 +35,13 @@ export class Token {
     private readonly _body: IBrontosaurusBody;
     private readonly _signature: string;
 
-    private readonly _onInvalid: () => void;
+    private readonly _onInvalid: (() => void) | null;
 
     private constructor(
+        onInvalid: (() => void) | null,
         raw: string,
-        onInvalid: () => void,
     ) {
+
         this._onInvalid = onInvalid;
 
         this._raw = raw;
@@ -83,9 +80,7 @@ export class Token {
         }
         return username;
     }
-
     public get signature(): string {
-
         this._validate();
         return this._signature;
     }
@@ -111,7 +106,9 @@ export class Token {
 
     private _break(): void {
 
-        this._onInvalid();
+        if (this._onInvalid) {
+            this._onInvalid();
+        }
         throw new Error('[Brontosaurus-Web] Invalid Token');
     }
 }
