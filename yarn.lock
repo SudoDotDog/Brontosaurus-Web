@@ -3,9 +3,9 @@
 
 
 "@brontosaurus/definition@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-1.3.0.tgz#7af9a03713313f09f7622b6b049bbdc967b478f6"
-  integrity sha512-GlqnYOB4AQTH7Wtq7zEc6baSR3VmndnWLsacYXhaHf4t/e97Rvr4TskGItK+dPvx9aoM5ow18WeMnOSLwSS2+w==
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-1.4.1.tgz#49c18c139ffd14b78394d98361e40cec32ad7938"
+  integrity sha512-eSUZlizk6cEQnnwC2wLA0+D2JfI1cdQaPtgGWiDcjcEbwAezOvohP/EnlJEwEbDI3TaLoX4UqVCBXlEEnn5Txg==
 
 "@sudoo/mock@^1.0.0":
   version "1.2.0"
