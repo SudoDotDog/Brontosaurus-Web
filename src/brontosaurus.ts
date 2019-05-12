@@ -70,12 +70,30 @@ export class Brontosaurus {
         return this;
     }
 
+    public validate(callbackPath?: string): this {
+
+        const token: Token | null = this._token();
+
+        if (!token) {
+            this.redirect(callbackPath);
+            return this;
+        }
+
+        if (!token.validate()) {
+            this.redirect(callbackPath);
+            return this;
+        }
+
+        return this;
+    }
+
     public hard(callbackPath?: string): Token {
 
         const token: Token | null = this._token();
 
         if (!token) {
             this.redirect(callbackPath);
+            return null as any;
         }
         return token as Token;
     }

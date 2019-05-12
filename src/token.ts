@@ -99,6 +99,11 @@ export class Token {
         return false;
     }
 
+    public validate(): boolean {
+
+        return Date.now() > this._header.expireAt;
+    }
+
     private _validate(): true {
 
         if (Date.now() > this._header.expireAt) {
