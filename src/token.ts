@@ -101,7 +101,7 @@ export class Token {
 
     public validate(): boolean {
 
-        return Date.now() > this._header.expireAt;
+        return Date.now() < this._header.expireAt;
     }
 
     private _validate(): true {
