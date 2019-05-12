@@ -1,0 +1,115 @@
+/**
+ * @author WMXPY
+ * @namespace Brontosaurus_Web
+ * @description Brontosaurus
+ */
+
+import { Token } from "./token";
+import { getParam, removeToken, storeToken } from "./util";
+
+export class Brontosaurus {
+
+    public static register(server: string, key: string): Brontosaurus {
+
+        if (this._instance) {
+            throw new Error('[Brontosaurus-Web] Registered');
+        }
+
+        this._instance = new Brontosaurus(server, key);
+        return this._instance;
+    }
+
+    public static logout(relogin?: boolean): Brontosaurus {
+
+        return this.instance.logout(relogin);
+    }
+
+    public static hard(callbackPath?: string): Token {
+
+        return this.instance.hard(callbackPath);
+    }
+
+    public static soft(): Token | null {
+
+        return this.instance.soft();
+    }
+
+    public static get instance(): Brontosaurus {
+
+        if (!this._instance) {
+            throw new Error('[Brontosaurus-Web] Need Register');
+        }
+
+        return this._instance;
+    }
+
+    private static _instance: Brontosaurus | undefined;
+
+    private readonly _server: string;
+    private readonly _key: string;
+
+    private constructor(server: string, key: string) {
+
+        this._server = server;
+        this._key = key;
+    }
+
+    public redirect(callbackPath: string = window.location.href): this {
+
+        window.location.href = this._redirectPath(callbackPath);
+        return this;
+    }
+
+    public check(callbackPath: string = window.location.origin): this {
+
+        const token: string | null = getParam(window.location.href, 'token');
+        if (token) {
+            storeToken(token);
+            window.history.replaceState({}, document.title, callbackPath);
+        }
+        return this;
+    }
+
+    public hard(callbackPath?: string): Token {
+
+        const token: Token | null = this._token();
+
+        if (!token) {
+            this.redirect(callbackPath);
+        }
+        return token as Token;
+    }
+
+    public soft(): Token | null {
+
+        const token: Token | null = this._token();
+        return token;
+    }
+
+    public logout(redirect?: boolean): Brontosaurus {
+
+        removeToken();
+        if (redirect) {
+            this.redirect();
+        }
+        return this;
+    }
+
+    private _token(callbackPath?: string): Token | null {
+
+        const onInvalid: (() => void) | null = callbackPath ? this._getOnInvalid(callbackPath) : null;
+        return Token.getToken(onInvalid, this._key);
+    }
+
+    private _redirectPath(callbackPath: string): string {
+
+        const keyParam: string = `key=${encodeURIComponent(this._key)}`;
+        const cbParam: string = `cb=${encodeURIComponent(callbackPath)}`;
+        return `${this._server}?${keyParam}&${cbParam}`;
+    }
+
+    private _getOnInvalid(callbackPath: string): () => void {
+
+        return () => window.location.href = callbackPath;
+    }
+}

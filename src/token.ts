@@ -84,6 +84,10 @@ export class Token {
         this._validate();
         return this._signature;
     }
+    public get organization(): string | undefined {
+        this._validate();
+        return this._body.organization;
+    }
 
     public sameApplication(applicationKey: string): boolean {
 
