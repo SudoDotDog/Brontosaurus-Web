@@ -9,6 +9,19 @@ import { getParam, removeToken, storeToken } from "./util";
 
 export class Brontosaurus {
 
+    public static hydrate(server: string, key: string, allowVisit: boolean = false): Brontosaurus {
+
+        const instance: Brontosaurus = this.register(server, key);
+
+        instance.check();
+        if (allowVisit) {
+            return instance;
+        }
+
+        instance.validate();
+        return instance;
+    }
+
     public static register(server: string, key: string): Brontosaurus {
 
         if (this._instance) {
