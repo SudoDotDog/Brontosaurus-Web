@@ -1,6 +1,6 @@
 {
   "name": "@brontosaurus/web",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": ":boar: Brontosaurus integration for web",
   "main": "dist/index.js",
   "directories": {

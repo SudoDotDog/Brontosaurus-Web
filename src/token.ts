@@ -99,6 +99,26 @@ export class Token {
         return false;
     }
 
+    public hasOneOfGroup(...groups: string[]): boolean {
+
+        for (const group of groups) {
+            if (this.groups.includes(group)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public hasGroups(...groups: string[]): boolean {
+
+        for (const group of groups) {
+            if (!this.groups.includes(group)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public validate(): boolean {
 
         return Date.now() < this._header.expireAt;
