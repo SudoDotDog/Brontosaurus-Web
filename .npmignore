@@ -12,6 +12,9 @@ docs
 # Tests
 test
 
+# Git
+.git
+
 # Configs
 .vscode
 .travis.yml
