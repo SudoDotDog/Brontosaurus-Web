@@ -37,9 +37,14 @@ export class Brontosaurus {
         return this.instance.logout(relogin);
     }
 
-    public static hard(callbackPath?: string): Token {
+    public static hard(callbackPath?: string, beforeRedirect?: () => void | Promise<void>): Token {
 
-        return this.instance.hard(callbackPath);
+        return this.instance.hard(callbackPath, beforeRedirect);
+    }
+
+    public static redirect(callbackPath?: string, beforeRedirect?: () => void | Promise<void>): Brontosaurus {
+
+        return this.instance.redirect(callbackPath, beforeRedirect);
     }
 
     public static soft(): Token | null {
@@ -67,9 +72,13 @@ export class Brontosaurus {
         this._key = key;
     }
 
-    public redirect(callbackPath: string = window.location.href): this {
+    public redirect(callbackPath: string = window.location.href, beforeRedirect?: () => void | Promise<void>): this {
 
-        window.location.href = this._redirectPath(callbackPath);
+        if (beforeRedirect) {
+            Promise.resolve(beforeRedirect()).then(() => window.location.href = this._redirectPath(callbackPath));
+        } else {
+            window.location.href = this._redirectPath(callbackPath);
+        }
         return this;
     }
 
@@ -100,12 +109,12 @@ export class Brontosaurus {
         return this;
     }
 
-    public hard(callbackPath?: string): Token {
+    public hard(callbackPath?: string, beforeRedirect?: () => void | Promise<void>): Token {
 
         const token: Token | null = this._token();
 
         if (!token) {
-            this.redirect(callbackPath);
+            this.redirect(callbackPath, beforeRedirect);
             return null as any;
         }
         return token as Token;
