@@ -92,13 +92,13 @@ export class Token {
         this._validate();
         return this._body.tags;
     }
-    public get organizationTags(): string[] {
+    public get organizationTags(): string[] | undefined {
         this._validate();
         return this._body.organizationTags;
     }
     public get combineTags(): string[] {
         this._validate();
-        return [...this._body.tags, ...this._body.organizationTags];
+        return [...this._body.tags, ...(this._body.organizationTags || [])];
     }
 
     public sameApplication(applicationKey: string): boolean {
@@ -153,8 +153,13 @@ export class Token {
 
     public organizationHasOneOfTag(...tags: string[]): boolean {
 
+        const organizationTags: string[] | undefined = this.organizationTags;
+        if (!organizationTags) {
+            return false;
+        }
+
         for (const tag of tags) {
-            if (this.organizationTags.includes(tag)) {
+            if (organizationTags.includes(tag)) {
                 return true;
             }
         }
@@ -163,8 +168,13 @@ export class Token {
 
     public organizationHasTags(...tags: string[]): boolean {
 
+        const organizationTags: string[] | undefined = this.organizationTags;
+        if (!organizationTags) {
+            return false;
+        }
+
         for (const tag of tags) {
-            if (!this.organizationTags.includes(tag)) {
+            if (!organizationTags.includes(tag)) {
                 return false;
             }
         }
