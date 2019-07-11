@@ -88,6 +88,18 @@ export class Token {
         this._validate();
         return this._body.organization;
     }
+    public get tags(): string[] {
+        this._validate();
+        return this._body.tags;
+    }
+    public get organizationTags(): string[] {
+        this._validate();
+        return this._body.organizationTags;
+    }
+    public get combineTags(): string[] {
+        this._validate();
+        return [...this._body.tags, ...this._body.organizationTags];
+    }
 
     public sameApplication(applicationKey: string): boolean {
 
@@ -113,6 +125,66 @@ export class Token {
 
         for (const group of groups) {
             if (!this.groups.includes(group)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public accountHasOneOfTag(...tags: string[]): boolean {
+
+        for (const tag of tags) {
+            if (this.tags.includes(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public accountHasTags(...tags: string[]): boolean {
+
+        for (const tag of tags) {
+            if (!this.tags.includes(tag)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public organizationHasOneOfTag(...tags: string[]): boolean {
+
+        for (const tag of tags) {
+            if (this.organizationTags.includes(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public organizationHasTags(...tags: string[]): boolean {
+
+        for (const tag of tags) {
+            if (!this.organizationTags.includes(tag)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public combineHasOneOfTag(...tags: string[]): boolean {
+
+        for (const tag of tags) {
+            if (this.combineTags.includes(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public combineHasTags(...tags: string[]): boolean {
+
+        for (const tag of tags) {
+            if (!this.combineTags.includes(tag)) {
                 return false;
             }
         }
