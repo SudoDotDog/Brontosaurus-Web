@@ -80,6 +80,18 @@ export class Token {
         }
         return username;
     }
+    public get displayName(): string | undefined {
+        this._validate();
+        const displayName: string | undefined = this._body.displayName;
+        return displayName;
+    }
+    public get name(): string {
+        this._validate();
+        if (this._body.displayName) {
+            return this._body.displayName;
+        }
+        return this._body.username;
+    }
     public get signature(): string {
         this._validate();
         return this._signature;
@@ -104,10 +116,8 @@ export class Token {
     public sameApplication(applicationKey: string): boolean {
 
         if (this._header && this._header.key) {
-
             return applicationKey === this._header.key;
         }
-
         return false;
     }
 
