@@ -47,6 +47,6 @@
     "@sudoo/triforce": "^1.6.0"
   },
   "dependencies": {
-    "@brontosaurus/definition": "^1.6.0"
+    "@brontosaurus/definition": "^1.6.1"
   }
 }

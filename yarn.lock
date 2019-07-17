@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@brontosaurus/definition@^1.6.0":
+"@brontosaurus/definition@^1.6.1":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-1.6.1.tgz#88ac9ff85066b68a0409c3c2946e45e228bbc3b2"
   integrity sha512-FNJX31Y+nnNIbC47b7JKPPXQ4iN1CZ5lvNUlBpl3Lt8D1zUlr6sUMcpDKUXXVWZg/uHF39rQgqHb2FaksvLOhQ==
