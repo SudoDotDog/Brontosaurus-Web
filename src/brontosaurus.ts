@@ -37,6 +37,11 @@ export class Brontosaurus {
         return this.instance.logout(relogin);
     }
 
+    public static raw(callbackPath?: string, beforeRedirect?: () => void | Promise<void>): string {
+
+        return this.hard(callbackPath, beforeRedirect).raw;
+    }
+
     public static hard(callbackPath?: string, beforeRedirect?: () => void | Promise<void>): Token {
 
         return this.instance.hard(callbackPath, beforeRedirect);
