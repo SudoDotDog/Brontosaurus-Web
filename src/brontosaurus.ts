@@ -131,7 +131,7 @@ export class Brontosaurus {
         return token;
     }
 
-    public logout(redirect?: boolean): Brontosaurus {
+    public logout(redirect: boolean = true): Brontosaurus {
 
         removeToken();
         if (redirect) {
