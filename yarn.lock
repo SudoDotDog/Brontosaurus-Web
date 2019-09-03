@@ -18,10 +18,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@brontosaurus/definition@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-2.1.1.tgz#037206586856bc3d6a5218d2ce47881eb4b11a34"
-  integrity sha512-xOta4GCbFaHmSIbn+thqTcqfS2koUiUkOsEblK8y13xQM2Eg3ziuJYboIIN6bVlEGj8wBUif4UcMs/8xGRYa8w==
+"@brontosaurus/definition@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@brontosaurus/definition/-/definition-2.3.0.tgz#519bc1ea020c3e0f9ae15837af720520a151d8a4"
+  integrity sha512-varRpzKFUyvj1B6ftBvMbBubCp5mVVgTHqy/ll9ig0ZeXux05q6xSOjKKWlcb/g3/xTem9H6/SGYEJpjvBvS0g==
 
 "@sudoo/mock@^1.2.0":
   version "1.2.0"
