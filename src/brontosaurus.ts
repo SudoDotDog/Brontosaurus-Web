@@ -9,7 +9,7 @@ import { getParam, removeToken, storeToken } from "./util";
 
 export class Brontosaurus {
 
-    public static hydrate(server: string, key: string, allowVisit: boolean = false): Brontosaurus {
+    public static hydrate(server: string, key: string, allowVisit: boolean = false, beforeRedirect?: () => void | Promise<void>): Brontosaurus {
 
         const instance: Brontosaurus = this.register(server, key);
 
@@ -18,7 +18,7 @@ export class Brontosaurus {
             return instance;
         }
 
-        instance.validate();
+        instance.validate(undefined, beforeRedirect);
         return instance;
     }
 
@@ -97,17 +97,17 @@ export class Brontosaurus {
         return this;
     }
 
-    public validate(callbackPath?: string): this {
+    public validate(callbackPath?: string, beforeRedirect?: () => void | Promise<void>): this {
 
         const token: Token | null = this._token();
 
         if (!token) {
-            this.redirect(callbackPath);
+            this.redirect(callbackPath, beforeRedirect);
             return this;
         }
 
         if (!token.validate()) {
-            this.redirect(callbackPath);
+            this.redirect(callbackPath, beforeRedirect);
             return this;
         }
 
