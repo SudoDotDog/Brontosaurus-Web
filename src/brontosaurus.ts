@@ -9,7 +9,12 @@ import { getParam, removeToken, storeToken } from "./util";
 
 export class Brontosaurus {
 
-    public static hydrate(server: string, key: string, allowVisit: boolean = false, beforeRedirect?: () => void | Promise<void>): Brontosaurus {
+    public static hydrate(
+        server: string,
+        key: string,
+        allowVisit: boolean = false,
+        beforeRedirect?: () => void | Promise<void>,
+    ): Brontosaurus {
 
         const instance: Brontosaurus = this.register(server, key);
 
