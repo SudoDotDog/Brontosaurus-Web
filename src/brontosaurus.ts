@@ -14,16 +14,17 @@ export class Brontosaurus {
         key: string,
         allowVisit: boolean = false,
         beforeRedirect?: () => void | Promise<void>,
+        callbackPath?: string,
     ): Brontosaurus {
 
         const instance: Brontosaurus = this.register(server, key);
 
-        instance.check();
+        instance.check(callbackPath);
         if (allowVisit) {
             return instance;
         }
 
-        instance.validate(undefined, beforeRedirect);
+        instance.validate(callbackPath, beforeRedirect);
         return instance;
     }
 
@@ -92,7 +93,7 @@ export class Brontosaurus {
         return this;
     }
 
-    public check(callbackPath: string = window.location.origin): this {
+    public check(callbackPath: string = window.location.href): this {
 
         const token: string | null = getParam(window.location.href, 'token');
         if (token) {
