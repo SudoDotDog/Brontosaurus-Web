@@ -83,7 +83,7 @@ export class Brontosaurus {
         this._key = key;
     }
 
-    public redirect(callbackPath: string = window.location.href, beforeRedirect?: () => void | Promise<void>): this {
+    public redirect(callbackPath: string = this._defaultCallbackPath(), beforeRedirect?: () => void | Promise<void>): this {
 
         if (beforeRedirect) {
             Promise.resolve(beforeRedirect()).then(() => window.location.href = this._redirectPath(callbackPath));
@@ -93,7 +93,7 @@ export class Brontosaurus {
         return this;
     }
 
-    public check(callbackPath: string = window.location.href): this {
+    public check(callbackPath: string = this._defaultCallbackPath()): this {
 
         const token: string | null = getParam(window.location.href, 'token');
         if (token) {
@@ -144,6 +144,13 @@ export class Brontosaurus {
             this.redirect();
         }
         return this;
+    }
+
+    private _defaultCallbackPath(): string {
+
+        const url: URL = new URL(window.location.href);
+
+        return url.origin + url.pathname;
     }
 
     private _token(callbackPath?: string): Token | null {
