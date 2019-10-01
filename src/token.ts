@@ -92,6 +92,10 @@ export class Token {
         }
         return this._body.username;
     }
+    public get email(): string | undefined {
+        this._validate();
+        return this._body.email;
+    }
     public get signature(): string {
         this._validate();
         return this._signature;
