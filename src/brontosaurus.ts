@@ -4,6 +4,7 @@
  * @description Brontosaurus
  */
 
+import { EmptyToken } from "./empty";
 import { Token } from "./token";
 import { getParam, removeToken, storeToken } from "./util";
 
@@ -63,6 +64,12 @@ export class Brontosaurus {
         return this.instance.soft();
     }
 
+    public static enableFallback(): void {
+
+        this._fallback = true;
+        return;
+    }
+
     public static get instance(): Brontosaurus {
 
         if (!this._instance) {
@@ -72,6 +79,7 @@ export class Brontosaurus {
         return this._instance;
     }
 
+    private static _fallback: boolean = false;
     private static _instance: Brontosaurus | undefined;
 
     private readonly _server: string;
@@ -126,7 +134,10 @@ export class Brontosaurus {
 
         if (!token) {
             this.redirect(callbackPath, beforeRedirect);
-            return {} as any;
+            if (Brontosaurus._fallback) {
+                return new EmptyToken() as any as Token;
+            }
+            return null as any;
         }
         return token as Token;
     }

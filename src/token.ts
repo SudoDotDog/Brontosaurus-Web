@@ -37,7 +37,7 @@ export class Token {
 
     private readonly _onInvalid: (() => void) | null;
 
-    private constructor(
+    public constructor(
         onInvalid: (() => void) | null,
         raw: string,
     ) {
