@@ -85,13 +85,22 @@ export class Brontosaurus {
     private readonly _server: string;
     private readonly _key: string;
 
+    private _redirecting: boolean;
+
     private constructor(server: string, key: string) {
 
         this._server = server;
         this._key = key;
+
+        this._redirecting = false;
     }
 
     public redirect(callbackPath: string = this._defaultCallbackPath(), beforeRedirect?: () => void | Promise<void>): this {
+
+        if (this._redirecting) {
+            return this;
+        }
+        this._redirecting = true;
 
         if (beforeRedirect) {
             Promise.resolve(beforeRedirect()).then(() => window.location.href = this._redirectPath(callbackPath));

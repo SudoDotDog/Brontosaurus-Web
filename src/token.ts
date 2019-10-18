@@ -52,6 +52,9 @@ export class Token {
         this._signature = parsed.signature;
     }
 
+    public get empty(): boolean {
+        return false;
+    }
     public get raw(): string {
         this._validate();
         return this._raw;

@@ -5,10 +5,12 @@
  */
 
 import { Basics } from "@brontosaurus/definition";
-import { Token } from "./token";
 
 export class EmptyToken {
 
+    public get empty(): boolean {
+        return true;
+    }
     public get raw(): string {
         return "";
     }
