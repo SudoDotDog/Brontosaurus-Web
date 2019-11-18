@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@sudoo/mock": "^1.2.0",
-    "@sudoo/triforce": "^1.8.3"
+    "@sudoo/triforce": "^2.0.3"
   },
   "dependencies": {
     "@brontosaurus/definition": "^3.0.0"
