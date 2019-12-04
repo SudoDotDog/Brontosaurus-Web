@@ -66,6 +66,10 @@ export class EmptyToken {
         return false;
     }
 
+    public hasNoGroups(...groups: string[]): boolean {
+        return false;
+    }
+
     public accountHasOneOfTag(...tags: string[]): boolean {
         return false;
     }
