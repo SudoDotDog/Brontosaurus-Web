@@ -42,11 +42,11 @@
     ],
     "sourceMap": true
   },
-  "devDependencies": {
-    "@sudoo/mock": "^1.2.0",
-    "@sudoo/triforce": "^2.0.4"
-  },
   "dependencies": {
     "@brontosaurus/definition": "^3.0.0"
+  },
+  "devDependencies": {
+    "@sudoo/mock": "^1.2.0",
+    "@sudoo/triforce": "^2.1.0"
   }
 }
