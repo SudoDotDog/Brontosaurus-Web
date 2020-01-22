@@ -153,6 +153,11 @@ export class Token {
         return !this.hasGroups(...groups);
     }
 
+    public hasNoneOfGroups(...groups: string[]): boolean {
+
+        return !this.hasOneOfGroup(...groups);
+    }
+
     public accountHasOneOfTag(...tags: string[]): boolean {
 
         for (const tag of tags) {
