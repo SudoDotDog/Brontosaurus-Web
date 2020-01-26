@@ -20,6 +20,7 @@ coverage
 # temp
 dist
 temp
+app
 
 # lock
 yarn.lock
