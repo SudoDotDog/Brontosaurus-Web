@@ -139,7 +139,7 @@ export class Brontosaurus {
 
     public hard(callbackPath?: string, beforeRedirect?: () => void | Promise<void>): Token {
 
-        const token: Token | null = this._token();
+        const token: Token | null = this._token(callbackPath);
 
         if (!token) {
             this.redirect(callbackPath, beforeRedirect);
