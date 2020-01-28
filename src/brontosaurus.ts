@@ -14,13 +14,13 @@ export class Brontosaurus {
         server: string,
         key: string,
         allowVisit: boolean = false,
-        beforeRedirect?: () => void | Promise<void>,
         callbackPath?: string,
+        beforeRedirect?: () => void | Promise<void>,
     ): Brontosaurus {
 
         const instance: Brontosaurus = this.register(server, key);
 
-        instance.check(callbackPath);
+        instance.check();
         if (allowVisit) {
             return instance;
         }
@@ -110,12 +110,12 @@ export class Brontosaurus {
         return this;
     }
 
-    public check(callbackPath: string = this._defaultCallbackPath()): this {
+    public check(): this {
 
         const token: string | null = getParam(window.location.href, 'token');
         if (token) {
             storeToken(token);
-            window.history.replaceState({}, document.title, callbackPath);
+            window.history.replaceState({}, document.title, this._defaultJumpPath());
         }
         return this;
     }
@@ -166,14 +166,21 @@ export class Brontosaurus {
         return this;
     }
 
-    private _defaultCallbackPath(): string {
+    private _defaultJumpPath(): string {
 
         const url: URL = new URL(window.location.href);
 
         return url.origin + url.pathname;
     }
 
-    private _token(callbackPath?: string): Token | null {
+    private _defaultCallbackPath(): string {
+
+        const url: URL = new URL(window.location.href);
+
+        return url.origin + url.pathname + url.search;
+    }
+
+    private _token(callbackPath: string = this._defaultCallbackPath()): Token | null {
 
         const onInvalid: (() => void) | null = callbackPath ? this._getOnInvalid(callbackPath) : null;
         return Token.getToken(onInvalid, this._key);
