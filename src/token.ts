@@ -119,6 +119,10 @@ export class Token {
         this._validate();
         return [...this._body.tags, ...(this._body.organizationTags || [])];
     }
+    public get modifies(): string[] {
+        this._validate();
+        return [...this._body.modifies];
+    }
 
     public sameApplication(applicationKey: string): boolean {
 
@@ -226,6 +230,12 @@ export class Token {
             }
         }
         return true;
+    }
+
+    public hasModify(modify: string): boolean {
+
+        const modifies: string[] = this._body.modifies || [];
+        return modifies.includes(modify);
     }
 
     public validate(): boolean {

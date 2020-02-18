@@ -1,6 +1,6 @@
 {
   "name": "@brontosaurus/web",
-  "version": "3.4.2",
+  "version": "3.5.0",
   "description": ":boar: Brontosaurus integration for web",
   "main": "dist/index.js",
   "directories": {
@@ -43,7 +43,7 @@
     "sourceMap": true
   },
   "dependencies": {
-    "@brontosaurus/definition": "^3.1.0"
+    "@brontosaurus/definition": "^3.1.2"
   },
   "devDependencies": {
     "@sudoo/io": "^1.6.2",
