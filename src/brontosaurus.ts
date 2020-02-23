@@ -180,7 +180,7 @@ export class Brontosaurus {
         return url.origin + url.pathname + url.search;
     }
 
-    private _token(callbackPath: string = this._defaultCallbackPath()): Token | null {
+    private _token(callbackPath: string = this._defaultRedirectCallbackPath()): Token | null {
 
         const onInvalid: (() => void) | null = callbackPath ? this._getOnInvalid(callbackPath) : null;
         return Token.getToken(onInvalid, this._key);
@@ -191,6 +191,12 @@ export class Brontosaurus {
         const keyParam: string = `key=${encodeURIComponent(this._key)}`;
         const cbParam: string = `cb=${encodeURIComponent(callbackPath)}`;
         return `${this._server}?${keyParam}&${cbParam}`;
+    }
+
+    private _defaultRedirectCallbackPath(): string {
+
+        const defaultCallbackPath: string = this._defaultCallbackPath();
+        return this._redirectPath(defaultCallbackPath);
     }
 
     private _getOnInvalid(callbackPath: string): () => void {
