@@ -128,6 +128,18 @@ export class Token {
         return [...this._body.modifies];
     }
 
+    public getCombined(): string {
+
+        this._validate();
+        return `${this.namespace}/${this.username}`;
+    }
+
+    public getURLFriendlyCombined(): string {
+
+        this._validate();
+        return `${this.namespace}_${this.username}`;
+    }
+
     public sameApplication(applicationKey: string): boolean {
 
         if (this._header && this._header.key) {
