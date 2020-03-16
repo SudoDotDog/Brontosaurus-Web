@@ -4,7 +4,7 @@
  * @description Token
  */
 
-import { Basics, IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
+import { Basics, DEFAULT_BRONTOSAURUS_NAMESPACE, IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
 import { ParsedToken } from "./declare";
 import { getToken, parseToken } from "./util";
 
@@ -131,13 +131,13 @@ export class Token {
     public getCombined(): string {
 
         this._validate();
-        return `${this.namespace}/${this.username}`;
+        return this._joinCombined('/');
     }
 
     public getURLFriendlyCombined(): string {
 
         this._validate();
-        return `${this.namespace}_${this.username}`;
+        return this._joinCombined('_');
     }
 
     public sameApplication(applicationKey: string): boolean {
@@ -274,5 +274,13 @@ export class Token {
             this._onInvalid();
         }
         throw new Error('[Brontosaurus-Web] Invalid Token');
+    }
+
+    private _joinCombined(separator: string): string {
+
+        if (this.namespace === DEFAULT_BRONTOSAURUS_NAMESPACE.DEFAULT) {
+            return this.username;
+        }
+        return `${this.namespace}${separator}${this.username}`;
     }
 }
