@@ -6,4 +6,6 @@
 
 export * from "./brontosaurus";
 export * from "./declare";
+export * from "./parse";
 export * from "./token";
+
