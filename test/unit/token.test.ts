@@ -17,6 +17,15 @@ describe('Given a {Token} class', (): void => {
 
     const chance: Chance.Chance = new Chance("brontosaurus-web-token");
 
+    let originalAtob: any;
+    before(() => {
+        originalAtob = global.atob;
+    });
+
+    after(() => {
+        global.atob = originalAtob;
+    });
+
     it('should be able to create', (): void => {
 
         const token: string = chance.string() + '.' + chance.string() + '.' + chance.string();

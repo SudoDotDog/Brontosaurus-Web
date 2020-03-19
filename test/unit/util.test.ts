@@ -9,8 +9,6 @@ import { expect } from 'chai';
 import * as Chance from 'chance';
 import { getParam } from '../../src/util';
 
-declare const global: any;
-
 describe('Given [Util] helper function', (): void => {
 
     const chance: Chance.Chance = new Chance("brontosaurus-web-util");
