@@ -23,6 +23,14 @@
     "url": "https://github.com/SudoDotDog/Brontosaurus-Web/issues"
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Web#readme",
+  "dependencies": {
+    "@brontosaurus/definition": "^3.3.0"
+  },
+  "devDependencies": {
+    "@sudoo/io": "^1.7.0",
+    "@sudoo/mock": "^1.3.0",
+    "@sudoo/triforce": "^2.3.1"
+  },
   "nyc": {
     "extension": [
       ".ts"
@@ -41,13 +49,5 @@
       "./test/tshook.js"
     ],
     "sourceMap": true
-  },
-  "dependencies": {
-    "@brontosaurus/definition": "^3.2.2"
-  },
-  "devDependencies": {
-    "@sudoo/io": "^1.7.0",
-    "@sudoo/mock": "^1.3.0",
-    "@sudoo/triforce": "^2.2.1"
   }
 }
