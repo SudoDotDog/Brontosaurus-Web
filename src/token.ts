@@ -99,6 +99,10 @@ export class Token {
         this._validate();
         return this._body.namespace;
     }
+    public get avatar(): string | undefined {
+        this._validate();
+        return this._body.avatar;
+    }
     public get email(): string | undefined {
         this._validate();
         return this._body.email;
