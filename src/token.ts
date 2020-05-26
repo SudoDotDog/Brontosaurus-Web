@@ -59,6 +59,10 @@ export class Token {
         this._validate();
         return this._raw;
     }
+    public get attempt(): string {
+        this._validate();
+        return this._header.attempt;
+    }
     public get groups(): string[] {
         this._validate();
         return this._body.groups;
