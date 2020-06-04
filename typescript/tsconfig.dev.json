@@ -8,6 +8,7 @@
         "inlineSourceMap": true,
         "lib": [
             "DOM",
+            "DOM.Iterable",
             "es2016",
             "es6"
         ],

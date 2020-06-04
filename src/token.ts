@@ -11,7 +11,7 @@ import { getToken, parseToken } from "./util";
 export class Token {
 
     public static getToken(
-        onInvalid: (() => void) | null,
+        onInvalid: () => void,
         applicationKey: string,
         getTokenFunc: () => string | null = getToken,
     ): Token | null {
@@ -35,10 +35,10 @@ export class Token {
     private readonly _body: IBrontosaurusBody;
     private readonly _signature: string;
 
-    private readonly _onInvalid: (() => void) | null;
+    private readonly _onInvalid: () => void;
 
     public constructor(
-        onInvalid: (() => void) | null,
+        onInvalid: () => void,
         raw: string,
     ) {
 

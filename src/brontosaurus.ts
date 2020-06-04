@@ -169,20 +169,41 @@ export class Brontosaurus {
     private _defaultJumpPath(): string {
 
         const url: URL = new URL(window.location.href);
+        const entries: Array<[string, string]> = [...url.searchParams.entries()];
+        const searchMap: Record<string, any> = entries.reduce((previous: Record<string, any>, current: [string, string]) => {
 
-        return url.origin + url.pathname;
+            const key: string = current[0];
+            const value: string = current[1];
+
+            if (key === 'token') {
+                return previous;
+            }
+
+            return {
+                ...previous,
+                [key]: value,
+            };
+        }, {});
+
+        const search: string = Object.keys(searchMap).reduce((previous: string, current: string, index: number) => {
+            if (index === 0) {
+                return `?${current}=${searchMap[current]}`;
+            }
+            return `${previous}&${current}=${searchMap[current]}`;
+        }, '');
+
+        return url.origin + url.pathname + search;
     }
 
     private _defaultCallbackPath(): string {
 
         const url: URL = new URL(window.location.href);
-
         return url.origin + url.pathname + url.search;
     }
 
-    private _token(callbackPath: string = this._defaultRedirectCallbackPath()): Token | null {
+    private _token(callbackPath?: string): Token | null {
 
-        const onInvalid: (() => void) | null = callbackPath ? this._getOnInvalid(callbackPath) : null;
+        const onInvalid: () => void = this._getOnInvalid(callbackPath);
         return Token.getToken(onInvalid, this._key);
     }
 
@@ -199,7 +220,7 @@ export class Brontosaurus {
         return this._redirectPath(defaultCallbackPath);
     }
 
-    private _getOnInvalid(callbackPath: string): () => void {
+    private _getOnInvalid(callbackPath: string = this._defaultRedirectCallbackPath()): () => void {
 
         return () => window.location.href = callbackPath;
     }
