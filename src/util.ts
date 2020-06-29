@@ -49,13 +49,13 @@ export const getParam = (url: string, name: string): string | null => {
             name);
 
     const regexp: RegExp = new RegExp(`(${encodedName}=)(.*?)(&|$)`, 'i');
-    const matched: string[] | null = url.match(regexp);
+    const matched: string[] | null = regexp.exec(url);
 
     if (!matched || !matched[0]) {
         return null;
     }
 
-    const center: string = matched[0] as string; // 'name=value&' | 'name=value'
+    const center: string = matched[0]; // 'name=value&' | 'name=value'
     const equalIndex: number = center.indexOf('=');
 
     if (equalIndex === -1) {

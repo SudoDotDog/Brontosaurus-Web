@@ -42,7 +42,7 @@ describe('Given [Util] helper function', (): void => {
 
             const result: string | null = getParam(url, chance.string());
 
-            // tslint:disable-next-line
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             expect(result).to.be.null;
         });
     });

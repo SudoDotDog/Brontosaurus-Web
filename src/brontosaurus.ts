@@ -10,6 +10,9 @@ import { getParam, removeToken, storeToken } from "./util";
 
 export class Brontosaurus {
 
+    private static _fallback: boolean = false;
+    private static _instance: Brontosaurus | undefined;
+
     public static hydrate(
         server: string,
         key: string,
@@ -79,9 +82,6 @@ export class Brontosaurus {
         return this._instance;
     }
 
-    private static _fallback: boolean = false;
-    private static _instance: Brontosaurus | undefined;
-
     private readonly _server: string;
     private readonly _key: string;
 
@@ -148,7 +148,7 @@ export class Brontosaurus {
             }
             return null as any;
         }
-        return token as Token;
+        return token;
     }
 
     public soft(): Token | null {
@@ -192,13 +192,13 @@ export class Brontosaurus {
             return `${previous}&${current}=${searchMap[current]}`;
         }, '');
 
-        return url.origin + url.pathname + search;
+        return `${url.origin}${url.pathname}${search}`;
     }
 
     private _defaultCallbackPath(): string {
 
         const url: URL = new URL(window.location.href);
-        return url.origin + url.pathname + url.search;
+        return `${url.origin}${url.pathname}${url.search}`;
     }
 
     private _token(callbackPath?: string): Token | null {

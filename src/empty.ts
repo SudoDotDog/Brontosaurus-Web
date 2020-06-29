@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * @author WMXPY
  * @namespace Brontosaurus_Web
