@@ -8,6 +8,14 @@ import { EmptyToken } from "./empty";
 import { Token } from "./token";
 import { getParam, removeToken, storeToken } from "./util";
 
+export type BrontosaurusConfig = {
+
+    readonly externalLink?: boolean;
+    readonly allowVisit?: boolean,
+    readonly callbackPath?: string,
+    readonly beforeRedirect?: () => void | Promise<void>,
+};
+
 export class Brontosaurus {
 
     private static _fallback: boolean = false;
@@ -16,19 +24,22 @@ export class Brontosaurus {
     public static hydrate(
         server: string,
         key: string,
-        allowVisit: boolean = false,
-        callbackPath?: string,
-        beforeRedirect?: () => void | Promise<void>,
+        config?: BrontosaurusConfig,
     ): Brontosaurus {
 
         const instance: Brontosaurus = this.register(server, key);
 
+        const fixedConfig: BrontosaurusConfig = {
+            allowVisit: false,
+            ...config,
+        };
+
         instance.check();
-        if (allowVisit) {
+        if (fixedConfig.allowVisit) {
             return instance;
         }
 
-        instance.validate(callbackPath, beforeRedirect);
+        instance.validate(fixedConfig.callbackPath, fixedConfig.beforeRedirect);
         return instance;
     }
 
@@ -211,7 +222,9 @@ export class Brontosaurus {
 
         const keyParam: string = `key=${encodeURIComponent(this._key)}`;
         const cbParam: string = `cb=${encodeURIComponent(callbackPath)}`;
-        return `${this._server}?${keyParam}&${cbParam}`;
+        const elParam: string = `el=${'123'}`;
+
+        return `${this._server}?${keyParam}&${cbParam}&${elParam}`;
     }
 
     private _defaultRedirectCallbackPath(): string {

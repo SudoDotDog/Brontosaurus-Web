@@ -1,6 +1,6 @@
 {
   "name": "@brontosaurus/web",
-  "version": "3.11.0",
+  "version": "3.12.0",
   "description": ":boar: Brontosaurus integration for web",
   "repository": {
     "type": "git",
