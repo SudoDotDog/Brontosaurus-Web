@@ -58,6 +58,7 @@ export class Brontosaurus {
         }
 
         const fixedConfig: BrontosaurusConfig = {
+            externalLink: true,
             ...config,
         };
 
