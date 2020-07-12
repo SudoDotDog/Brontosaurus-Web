@@ -11,6 +11,10 @@ import { getParam, removeToken, storeToken } from "./util";
 export type BrontosaurusConfig = {
 
     readonly externalLink?: boolean;
+};
+
+export type BrontosaurusHydrateConfig = {
+
     readonly allowVisit?: boolean,
     readonly callbackPath?: string,
     readonly beforeRedirect?: () => void | Promise<void>,
@@ -24,12 +28,12 @@ export class Brontosaurus {
     public static hydrate(
         server: string,
         key: string,
-        config?: BrontosaurusConfig,
+        config?: BrontosaurusHydrateConfig,
     ): Brontosaurus {
 
         const instance: Brontosaurus = this.register(server, key);
 
-        const fixedConfig: BrontosaurusConfig = {
+        const fixedConfig: BrontosaurusHydrateConfig = {
             allowVisit: false,
             ...config,
         };
@@ -43,13 +47,21 @@ export class Brontosaurus {
         return instance;
     }
 
-    public static register(server: string, key: string): Brontosaurus {
+    public static register(
+        server: string,
+        key: string,
+        config?: BrontosaurusConfig,
+    ): Brontosaurus {
 
         if (this._instance) {
             throw new Error('[Brontosaurus-Web] Registered');
         }
 
-        this._instance = new Brontosaurus(server, key);
+        const fixedConfig: BrontosaurusConfig = {
+            ...config,
+        };
+
+        this._instance = new Brontosaurus(server, key, fixedConfig);
         return this._instance;
     }
 
@@ -96,12 +108,20 @@ export class Brontosaurus {
     private readonly _server: string;
     private readonly _key: string;
 
+    private _externalLink: boolean;
+
     private _redirecting: boolean;
 
-    private constructor(server: string, key: string) {
+    private constructor(
+        server: string,
+        key: string,
+        config: BrontosaurusConfig,
+    ) {
 
         this._server = server;
         this._key = key;
+
+        this._externalLink = Boolean(config.externalLink);
 
         this._redirecting = false;
     }
@@ -222,7 +242,7 @@ export class Brontosaurus {
 
         const keyParam: string = `key=${encodeURIComponent(this._key)}`;
         const cbParam: string = `cb=${encodeURIComponent(callbackPath)}`;
-        const elParam: string = `el=${'123'}`;
+        const elParam: string = `el=${this._externalLink ? 'true' : 'false'}`;
 
         return `${this._server}?${keyParam}&${cbParam}&${elParam}`;
     }
