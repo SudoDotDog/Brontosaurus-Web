@@ -15,9 +15,9 @@ export type BrontosaurusConfig = {
 
 export type BrontosaurusHydrateConfig = {
 
-    readonly allowVisit?: boolean,
-    readonly callbackPath?: string,
-    readonly beforeRedirect?: () => void | Promise<void>,
+    readonly allowVisit?: boolean;
+    readonly callbackPath?: string;
+    readonly beforeRedirect?: () => void | Promise<void>;
 };
 
 export class Brontosaurus {
