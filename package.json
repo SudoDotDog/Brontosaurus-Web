@@ -1,7 +1,7 @@
 {
   "name": "@brontosaurus/web",
   "version": "3.12.1",
-  "description": ":boar: Brontosaurus integration for web",
+  "description": "Brontosaurus integration for web",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SudoDotDog/Brontosaurus-Web.git"
